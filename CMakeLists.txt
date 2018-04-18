@@ -39,4 +39,4 @@ include_directories("${INCL_DIR}")
 # Create engine executable
 add_executable(CutiaEngine ${SRC})
 
-target_link_libraries(CutiaEngine ${SDL2_LIBRARIES})
+target_link_libraries(CutiaEngine ${SDL2_LIBRARIES} SDL2_image)
