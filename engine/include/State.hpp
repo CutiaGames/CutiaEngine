@@ -1,31 +1,23 @@
 #ifndef STATE_HPP
 #define STATE_HPP
 
-// #include <vector>
-// #include <memory>
+#include <vector>
+#include <memory>
 
-// #include "GameObject.h"
-// #include "Music.h"
 
-// class State
-// {
-//     private:
-//         GameObject *bg;
-//         Music *music;
-//         bool quitRequested;
-//         std::vector<std::unique_ptr<GameObject>> objectArray;
+class State
+{
+    private:
+        bool quitRequested;
 
-//         void Input();
-//         void AddObject(int mouseX, int mouseY);
+    public:
+        State();
+        ~State();
 
-//     public:
-//         State();
-//         ~State();
-
-//         bool QuitRequested();
-//         void LoadAssets();
-//         void Update(float dt);
-//         void Render();
-// };
+        bool QuitRequested();
+        void Update(float dt);
+        void Render();
+        void Input();
+};
 
 #endif

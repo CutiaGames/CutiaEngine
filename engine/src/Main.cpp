@@ -2,7 +2,8 @@
 
 int main()
 {
-    Game::GetInstance().Init("CutiaGames Engine 2018", 1024, 600);
+
+    Game::GetInstance().Init(1024, 600);
     Game::GetInstance().Run();
     Game::GetInstance().~Game();
 
