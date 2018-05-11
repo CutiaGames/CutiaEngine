@@ -15,7 +15,7 @@ void Image::render(){
 }
 
 void Image::update(){
-    x += 1;
+    // x += 1;
 }
 
 

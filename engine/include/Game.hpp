@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "CutiaSDL.hpp"
+#include "Scene.hpp"
 
 class Game {
   
@@ -10,6 +11,7 @@ class Game {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event;
+    Scene currentScene;
 
   public:
     ~Game();

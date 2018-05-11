@@ -6,6 +6,7 @@
 class Scene{
 
     public:
+        void setup();
         virtual void render();
         virtual void update();
 };
