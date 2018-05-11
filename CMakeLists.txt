@@ -6,7 +6,9 @@ project(CutiaEngine)
 
 # Define cmake variables
 set (SRC_DIR "${PROJECT_SOURCE_DIR}/engine/src")
+
 set (INCL_DIR "${PROJECT_SOURCE_DIR}/engine/include")
+
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 
