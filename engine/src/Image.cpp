@@ -7,15 +7,18 @@ using std::string;
 
 void Image::render(){
 
+    int pos_x = x + obj->x;
+    int pos_y = y + obj->y;
+
     SDL_Renderer* screen = Game::getInstance().getRenderer();
-    SDL_Rect renderQuad = {x, y, width, height};
+    SDL_Rect renderQuad = {pos_x, pos_y, width, height};
     SDL_RenderCopy(screen, image, NULL, &renderQuad);
 
     screen = NULL;
 }
 
 void Image::update(){
-    // x += 1;
+    
 }
 
 
