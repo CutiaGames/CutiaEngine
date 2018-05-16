@@ -14,7 +14,6 @@ Game& Game::getInstance(){
 
 void Game::Init(int width, int height){
 
-    //TODO: Crash when fail init
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0){
         printf("[ERROR] SDL_Init: %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
@@ -38,8 +37,13 @@ void Game::Init(int width, int height){
         exit(EXIT_FAILURE);
     }
 
-    currentScene = Scene();
-    currentScene.setup();
+    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ){
+        printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
+        exit(EXIT_FAILURE);
+    }
+
+    currentScene = new SceneGuitar();
+    currentScene->setup();
 
     instance = this;
 }
@@ -67,11 +71,11 @@ void Game::run(){
         if (event.type == SDL_QUIT) break;
 
         //Update
-        currentScene.update();
+        currentScene->update();
 
         SDL_RenderClear(renderer);
         //Render
-        currentScene.render();
+        currentScene->render();
         SDL_RenderPresent(renderer);
 
         SDL_Delay(33);

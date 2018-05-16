@@ -11,7 +11,7 @@ class Game {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event;
-    Scene currentScene;
+    Scene* currentScene;
 
   public:
     ~Game();

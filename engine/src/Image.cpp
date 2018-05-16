@@ -47,6 +47,9 @@ SDL_Texture* Image::loadImage(std::string path){
     width = surface->w;
     height = surface->h;
 
+    x = 0;
+    y = 0;
+
     SDL_FreeSurface(surface);
     surface = NULL;
     screen = NULL;

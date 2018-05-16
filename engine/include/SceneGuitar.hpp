@@ -9,6 +9,14 @@ using std::vector;
 
 class SceneGuitar : public Scene{
 
+    private:
+        int ticks;
+        void createNewNoteAtTop();
+
+    public:
+        void setup();
+        void update();
+
 };
 
 

@@ -6,28 +6,17 @@
 
 
 void Scene::setup(){
-
-    GameObject* obj = new GameObject();
-
-    //Component
-    Component* image = new Image("donut.png");
-    obj->x = 100;
-    obj->y = 100;
-
-    obj->addComponent(image);
-
-    objs.push_back(obj);
 }
 
 void Scene::render(){
-    
+    // printf("Scene:render\n");
     for (auto e_obj : objs) {
         e_obj->render();
     }
 }
 
 void Scene::update(){
-    
+    // printf("Scene:update\n");
     for (auto e_obj : objs) {
         e_obj->update();
     }
