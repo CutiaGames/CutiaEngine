@@ -7,6 +7,7 @@ Game& Game::getInstance(){
 
     if(instance == nullptr){
         instance = new Game;
+        instance->inputManager = new InputManager();
     }
 
     return *instance;
@@ -63,20 +64,40 @@ SDL_Event Game::getEvent(){
     return event;
 }
 
+bool Game::buttonDown(const std::string& buttonName){
+    return inputManager->is_button_down(buttonName);
+}
+
 void Game::run(){
 
-    while(1){
+    bool loop = true;
 
-        SDL_PollEvent(&event);
-        if (event.type == SDL_QUIT) break;
+    while(loop){
+
+        SDL_Event evt;
+        while(SDL_PollEvent(&evt) != 0) {
+            switch(evt.type) {
+                case SDL_QUIT:
+                    loop = false;
+                    break;
+                default:
+                    inputManager->gather_input(evt);
+                    break;
+            }
+        }
 
         //Update
         currentScene->update();
 
+        //Clear screen
         SDL_RenderClear(renderer);
+
         //Render
         currentScene->render();
         SDL_RenderPresent(renderer);
+
+        //Clear input
+        inputManager->clear_input();
 
         SDL_Delay(33);
     }
