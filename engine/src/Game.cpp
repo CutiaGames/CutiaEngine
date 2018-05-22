@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "SceneGuitar.hpp"
+#include "Scene.hpp"
 
 Game* Game::instance = nullptr;
 
