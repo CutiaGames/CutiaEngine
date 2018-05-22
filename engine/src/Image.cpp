@@ -7,15 +7,18 @@ using std::string;
 
 void Image::render(){
 
+    int pos_x = x + obj->x;
+    int pos_y = y + obj->y;
+
     SDL_Renderer* screen = Game::getInstance().getRenderer();
-    SDL_Rect renderQuad = {x, y, width, height};
+    SDL_Rect renderQuad = {pos_x, pos_y, width, height};
     SDL_RenderCopy(screen, image, NULL, &renderQuad);
 
     screen = NULL;
 }
 
 void Image::update(){
-    // x += 1;
+    
 }
 
 
@@ -43,6 +46,9 @@ SDL_Texture* Image::loadImage(std::string path){
 
     width = surface->w;
     height = surface->h;
+
+    x = 0;
+    y = 0;
 
     SDL_FreeSurface(surface);
     surface = NULL;

@@ -1,18 +1,20 @@
 #include "Scene.hpp"
-#include "Image.hpp"
 #include <iostream>
-
-Image* image = NULL;
-
+#include "GameObject.hpp"
 
 void Scene::setup(){
-    image = new Image("donut.png");
 }
 
 void Scene::render(){
-    image->render();
+    // printf("Scene:render\n");
+    for (auto e_obj : objs) {
+        e_obj->render();
+    }
 }
 
 void Scene::update(){
-    image->update();
+    // printf("Scene:update\n");
+    for (auto e_obj : objs) {
+        e_obj->update();
+    }
 }

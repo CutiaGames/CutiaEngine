@@ -11,12 +11,12 @@ class Game {
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Event event;
-    Scene currentScene;
+    Scene* currentScene;
 
   public:
     ~Game();
 
-    void Init(int width, int height);
+    void Init(int width, int height, Scene* initialScene);
     static Game& getInstance();
     void run();
     SDL_Renderer* getRenderer();
