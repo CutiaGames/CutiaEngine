@@ -1,9 +1,6 @@
 #include "Scene.hpp"
-#include "Image.hpp"
 #include <iostream>
 #include "GameObject.hpp"
-
-
 
 void Scene::setup(){
 }

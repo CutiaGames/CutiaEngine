@@ -12,7 +12,7 @@ Game& Game::getInstance(){
     return *instance;
 }
 
-void Game::Init(int width, int height){
+void Game::Init(int width, int height, Scene* initialScene){
 
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0){
         printf("[ERROR] SDL_Init: %s\n", SDL_GetError());
@@ -42,7 +42,7 @@ void Game::Init(int width, int height){
         exit(EXIT_FAILURE);
     }
 
-    currentScene = new SceneGuitar();
+    currentScene = initialScene;
     currentScene->setup();
 
     instance = this;

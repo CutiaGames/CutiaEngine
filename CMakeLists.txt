@@ -4,10 +4,15 @@ project(CutiaEngine)
 # A Linux Package is Required
 # sudo apt install cmake libsdl2-dev g++
 
+# ENGINE DIR
 # Define cmake variables
 set (SRC_DIR "${PROJECT_SOURCE_DIR}/engine/src")
-
 set (INCL_DIR "${PROJECT_SOURCE_DIR}/engine/include")
+
+# GAMES DIR
+# Define cmake variables
+set (GAME_SRC_DIR "${PROJECT_SOURCE_DIR}/games/GuitarHero")
+set (GAME_INCL_DIR "${PROJECT_SOURCE_DIR}/games/GuitarHero")
 
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
@@ -23,8 +28,8 @@ include_directories(${SDL2_INCLUDE_DIR}
                     ${SDL2_TTF_INCLUDE_DIR})
 
 
-# Recursive search for cpp and c files on source directory
-file(GLOB SRC ${SRC_DIR}/*.cpp)
+# Recursive search for cpp and c files on  project root directory
+file(GLOB SRC ${SRC_DIR}/*.cpp ${GAME_SRC_DIR}/*.cpp )
 
 
 # Adapt flags by compiler id
@@ -42,6 +47,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
 
 # Include headers
 include_directories("${INCL_DIR}")
+include_directories("${GAME_INCL_DIR}")
 
 
 # Create engine executable

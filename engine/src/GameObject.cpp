@@ -20,6 +20,4 @@ void GameObject::update(){
     for (auto e_comp : components) {
         e_comp->update();
     }
-
-    y += 5;
 }

@@ -16,7 +16,7 @@ class Game {
   public:
     ~Game();
 
-    void Init(int width, int height);
+    void Init(int width, int height, Scene* initialScene);
     static Game& getInstance();
     void run();
     SDL_Renderer* getRenderer();
