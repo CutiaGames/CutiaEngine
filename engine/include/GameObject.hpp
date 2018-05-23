@@ -16,8 +16,8 @@ class GameObject{
         GameObject(){ components = vector<Component*>(); }
         float x, y;
         void addComponent(Component* comp);
-        void render();
-        void update();
+        virtual void render();
+        virtual void update();
 };
 
 #endif
