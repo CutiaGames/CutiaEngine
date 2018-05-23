@@ -9,7 +9,7 @@ using std::vector;
 
 class GameObject{
 
-    private:
+    protected:
         vector<Component*> components;
 
     public:
