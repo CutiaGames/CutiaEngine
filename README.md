@@ -31,6 +31,8 @@ $ make run
 $ make clean
 ```
 
+<br>
+Midifile library https://midifile.sapp.org/tutorial/
 
 <br>
 cmake scripts that locate sdl libraries, were found at: https://github.com/tcbrindle/sdl2-cmake-scripts

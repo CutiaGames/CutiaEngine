@@ -38,7 +38,7 @@ void Game::Init(int width, int height, Scene* initialScene){
         exit(EXIT_FAILURE);
     }
 
-    if( Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 ) < 0 ){
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) < 0 ){
         printf( "SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError() );
         exit(EXIT_FAILURE);
     }
@@ -99,6 +99,6 @@ void Game::run(){
         //Clear input
         inputManager->clear_input();
 
-        SDL_Delay(33);
+        SDL_Delay(13);
     }
 }

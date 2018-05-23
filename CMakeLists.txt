@@ -29,7 +29,10 @@ include_directories(${SDL2_INCLUDE_DIR}
 
 
 # Recursive search for cpp and c files on  project root directory
-file(GLOB SRC ${SRC_DIR}/*.cpp ${GAME_SRC_DIR}/*.cpp )
+file(GLOB SRC ${SRC_DIR}/*.cpp 
+        ${SRC_DIR}/*.c
+        ${GAME_SRC_DIR}/*.cpp
+        ${GAME_SRC_DIR}/*.c )
 
 
 # Adapt flags by compiler id
@@ -49,11 +52,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
 include_directories("${INCL_DIR}")
 include_directories("${GAME_INCL_DIR}")
 
+# libmidifile 
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
 
 # Create engine executable
 add_executable(CutiaEngine ${SRC})
 
-target_link_libraries(CutiaEngine ${SDL2_LIBRARY}
-                             ${SDL2_IMAGE_LIBRARIES}
-                             ${SDL2_MIXER_LIBRARIES}
-                             ${SDL2_TTF_LIBRARIES})
+target_link_libraries(CutiaEngine midifile
+                            ${SDL2_LIBRARY}
+                            ${SDL2_IMAGE_LIBRARIES}
+                            ${SDL2_MIXER_LIBRARIES}
+                            ${SDL2_TTF_LIBRARIES})
