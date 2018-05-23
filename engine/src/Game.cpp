@@ -32,7 +32,7 @@ void Game::Init(int width, int height, Scene* initialScene){
         exit(EXIT_FAILURE);
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
     if(renderer == nullptr){
         printf("[ERROR] SDL_CreateRenderer: %s\n", SDL_GetError());
         exit(EXIT_FAILURE);
