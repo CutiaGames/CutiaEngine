@@ -12,7 +12,7 @@ void Image::render(){
 
     SDL_Renderer* screen = Game::getInstance().getRenderer();
     SDL_Rect renderQuad = {pos_x, pos_y, width, height};
-    SDL_RenderCopy(screen, image, NULL, &renderQuad);
+    SDL_RenderCopy(screen, texture, NULL, &renderQuad);
 
     screen = NULL;
 }

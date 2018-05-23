@@ -8,13 +8,15 @@ void Scene::setup(){
 void Scene::render(){
     // printf("Scene:render\n");
     for (auto e_obj : objs) {
-        e_obj->render();
+        if(e_obj->enabled)
+            e_obj->render();
     }
 }
 
 void Scene::update(){
     // printf("Scene:update\n");
     for (auto e_obj : objs) {
-        e_obj->update();
+        if(e_obj->enabled)
+            e_obj->update();
     }
 }

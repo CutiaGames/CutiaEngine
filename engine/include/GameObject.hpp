@@ -14,6 +14,7 @@ class GameObject{
 
     public:
         GameObject(){ components = vector<Component*>(); }
+        bool enabled = true;
         float x, y;
         void addComponent(Component* comp);
         virtual void render();

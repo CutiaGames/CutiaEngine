@@ -12,11 +12,11 @@ class Image: public Component{
 
     private:
         SDL_Texture* loadImage(string path);
-        SDL_Texture* image;
         float width, height;
 
     public:
-        Image(string path){ image = loadImage(path); }
+        Image(string path){ texture = loadImage(path); }
+        SDL_Texture* texture;
         int x, y;
         void render();
         void update();
