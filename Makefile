@@ -1,6 +1,6 @@
 run:
 	cd build && cmake .. && make
-	./build/CutiaEngine
+	./build/game
 
 clean:
 	rm -r -f build && mkdir build

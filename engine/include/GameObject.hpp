@@ -1,24 +1,39 @@
-#ifndef GAME_OBJECT_HPP
-#define GAME_OBJECT_HPP
+#ifndef GAMEOBJECT_HPP
+#define GAMEOBJECT_HPP
 
-#include "CutiaSDL.hpp"
-#include "Component.hpp"
 #include <vector>
+#include <iostream>
+
+#include "Component.hpp"
+#include "Rect.hpp"
 
 using std::vector;
+using std::string;
 
-class GameObject{
-
-    protected:
+class GameObject 
+{
+    private:
         vector<Component*> components;
-
+        bool isDead;
+        bool started;
+    
     public:
-        GameObject(){ components = vector<Component*>(); }
-        bool enabled = true;
-        float x, y;
-        void addComponent(Component* comp);
-        virtual void render();
-        virtual void update();
+        GameObject();
+        ~GameObject();
+
+        void Start();
+        void Update(float dt);
+        void Render();
+        bool IsDead();
+        void RequestDelete();
+        void AddComponent(Component* cpt);
+        void RemoveComponent(Component* cpt);
+        Component* GetComponent(string type);
+
+        void NotifyCollision(GameObject& other);
+
+        Rect box;
+        double angleDeg;
 };
 
 #endif

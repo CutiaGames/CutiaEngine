@@ -1,7 +1,7 @@
 # CutiaEngine
 ## Game Engine SDL Developed by
 Lucas Costa <br>
-Matheus Manuel <br>
+Mateus Manuel <br>
 <br>
 
 

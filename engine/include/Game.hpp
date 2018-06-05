@@ -1,34 +1,49 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "CutiaSDL.hpp"
+#include <iostream>
+#include <stack>
+
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_mixer.h"
+#include "SDL2/SDL_ttf.h"
+
 #include "Scene.hpp"
-#include "InputManager.hpp"
-#include <string>
 
-class Game {
-  
-  private:
-    static Game* instance;
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    SDL_Event event;
-    Scene* currentScene;
-    InputManager* inputManager;
+using std::string;
 
-  public:
-    ~Game();
+class Game
+{
+    private:
+        static Game* instance;
+        SDL_Window* window;
+        SDL_Renderer* renderer;
+        Scene* storedScene;
+        std::stack<std::unique_ptr<Scene>> sceneStack;
 
-    void Init(int width, int height, Scene* initialScene);
-    static Game& getInstance();
-    void run();
+        int frameStart;
+        float dt;
+        void CalculateDeltaTime();
 
-    SDL_Renderer* getRenderer();
-    SDL_Event getEvent();    
+        int width;
+        int height;
 
-    // Input Manager interface
-    bool buttonDown(const std::string& buttonName);
+    public:
+        ~Game();
 
+        void Init(string title, int width, int height);
+        static Game& GetInstance();
+        void Run();
+        SDL_Renderer* GetRenderer();
+
+        Scene& GetCurrentScene();
+        void Push(Scene* scene);
+        
+        float GetDeltaTime();
+
+        int GetHeight();
+        int GetWidth();
 };
 
 #endif

@@ -1,17 +1,27 @@
 #ifndef COMPONENT_HPP
 #define COMPONENT_HPP
 
-#include "CutiaSDL.hpp"
-#include <stdio.h>
+#include <iostream>
+
+using std::string;
 
 class GameObject;
 
-class Component{
+class Component
+{
+    protected:
+        GameObject& associated;
 
     public:
-        virtual void render(){ printf("Component:render\n"); return; }
-        virtual void update(){ printf("Component:update\n"); return; }
-        GameObject* obj;
+        Component(GameObject& associated) : associated(associated) {}
+        virtual ~Component() {}
+
+        void virtual Start() {};
+        void virtual Update(float dt) = 0;
+        void virtual Render() = 0;
+        bool virtual Is(string type) = 0;
+
+        void virtual NotifyCollision(GameObject& other) {};
 };
 
 #endif

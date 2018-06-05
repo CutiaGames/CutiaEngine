@@ -1,7 +1,7 @@
-#ifndef IMAGE_HPP
-#define IMAGE_HPP
+#ifndef IMAGE_HPPPP
+#define IMAGE_HPPPP
 
-#include "Component.hpp"
+#include "Component.hpppp"
 #include "Constants.hpp"
 
 #include <string>
