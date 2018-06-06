@@ -11,7 +11,7 @@
 TitleScene::TitleScene()
 {
     GameObject* title = new GameObject();
-    Sprite* titleSprite = new Sprite(*title,"sample_assets/img/title.jpg");
+    Sprite* titleSprite = new Sprite(*title, "assets/img/background.png");
     title->AddComponent(titleSprite);
     title->box.w = titleSprite->GetWidth();
     title->box.h = titleSprite->GetHeight();

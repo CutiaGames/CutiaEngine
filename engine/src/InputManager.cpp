@@ -28,8 +28,8 @@ void InputManager::Update()
 	quitRequested = false;
 	updateCounter++;
 
-	while (SDL_PollEvent(&event)) {
-
+	while (SDL_PollEvent(&event))
+    {
 		if (event.type == SDL_QUIT) 
         {
 			quitRequested = true;
@@ -100,6 +100,7 @@ int InputManager::GetMouseY()
 	return mouseY;
 }
 
-bool InputManager::QuitRequested(){
+bool InputManager::QuitRequested()
+{
 	return quitRequested;
 }

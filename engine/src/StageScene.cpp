@@ -11,6 +11,7 @@
 #include "Collision.hpp"
 #include "TitleScene.hpp"
 #include "Game.hpp"
+#include "Player.hpp"
 
 StageScene::StageScene()
 {
@@ -21,18 +22,28 @@ StageScene::StageScene()
     backgroundMusic.Play(-1);
         
     GameObject* bg = new GameObject();
-    bg->AddComponent(new Sprite(*bg, "sample_assets/img/ocean.jpg"));
+    bg->AddComponent(new Sprite(*bg, "assets/img/background.png"));
 	bg->AddComponent(new CameraFollower(*bg));
 	objectArray.emplace_back(bg);
 
+	/*
 	GameObject* map = new GameObject();
 	TileSet* tile = new TileSet(*map, 64, 64, "sample_assets/img/tileset.png");
 	TileMap* tileMap = new TileMap(*map, "sample_assets/map/tileMap.txt", tile);
 	map->box.y = map->box.x = 0;
 	map->AddComponent(tileMap);
 	objectArray.emplace_back(map);
+	*/
+
+	GameObject* playerGO = new GameObject();
+	Player* player = new Player(*playerGO);
+	playerGO->box.x = 512;
+	playerGO->box.y = 300;
+	playerGO->AddComponent(player);
+	objectArray.emplace_back(playerGO);
 
 	Camera::pos.x = Camera::pos.y = 0;
+	//Camera::Follow(playerGO);
 }
 
 StageScene::~StageScene()
