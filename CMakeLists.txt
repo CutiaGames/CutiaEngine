@@ -1,37 +1,45 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(game LANGUAGES CXX)
+cmake_minimum_required(VERSION 3.0)
+project(game)
 
-# Set directory folders
-set (PROJECT_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")
-set (PROJECT_SRC_DIR     "${PROJECT_SOURCE_DIR}/src")
-set (PROJECT_ASSETS_DIR  "${PROJECT_SOURCE_DIR}/assets")
+# A Linux Package is Required
+# sudo apt install cmake libsdl2-dev g++
 
-# Gets the list of files inside the src directory
-file(GLOB_RECURSE SOURCES "${PROJECT_SRC_DIR}/*.cpp"
-                          "${PROJECT_SRC_DIR}/*.c")
+# ENGINE DIR
+# Define cmake variables
+set (SRC_DIR "${PROJECT_SOURCE_DIR}/engine/src")
+set (INCL_DIR "${PROJECT_SOURCE_DIR}/engine/include")
+
+# GAMES DIR
+# Define cmake variables
+set (GAME_SRC_DIR "${PROJECT_SOURCE_DIR}/games/SuperDiscoFighter2000/src")
+set (GAME_INCL_DIR "${PROJECT_SOURCE_DIR}/games/SuperDiscoFighter2000/include")
+
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 
 
-#### Compilation ####
+find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 
-# Compilation Flags
-set(COMPILE_FLAGS "")
+include_directories(${SDL2_INCLUDE_DIR}
+                    ${SDL2_IMAGE_INCLUDE_DIR}
+                    ${SDL2_MIXER_INCLUDE_DIR}
+                    ${SDL2_TTF_INCLUDE_DIR})
 
+
+# Recursive search for cpp and c files on  project root directory
+file(GLOB SRC ${SRC_DIR}/*.cpp 
+        ${SRC_DIR}/*.c
+        ${GAME_SRC_DIR}/*.cpp
+        ${GAME_SRC_DIR}/*.c )
+
+
+# Adapt flags by compiler id
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL Clang)
-    set(COMPILE_FLAGS "${COMPILE_FLAGS} -pedantic -std=c++11 -MMD -g3 -g -fPIC\
-                                        -W -Wall -Wextra -Wshadow -Wcast-align -Wcast-qual -Wctor-dtor-privacy\
-                                        -Wdisabled-optimization -Wformat=2 -Wlogical-op -Wmissing-declarations\
-                                        -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls\
-                                        -Wsign-promo -Wstrict-null-sentinel -Wswitch-default -Wundef\
-                                        -Wzero-as-null-pointer-constant -Wuseless-cast -Wnon-virtual-dtor\
-                                        -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ldl")
+    set(COMPILE_FLAGS "${COMPILE_FLAGS} -std=c++11 -W -Wall -pedantic -std=c++11 -Wshadow -O2 -g")
 elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL GNU)
-    set(COMPILE_FLAGS "${COMPILE_FLAGS} -pedantic -std=c++11 -MMD -g3 -g -fPIC\
-                                        -W -Wall -Wextra -Wshadow -Wcast-align -Wcast-qual -Wctor-dtor-privacy\
-                                        -Wdisabled-optimization -Wformat=2 -Wlogical-op -Wmissing-declarations\
-                                        -Wmissing-include-dirs -Wnoexcept -Woverloaded-virtual -Wredundant-decls\
-                                        -Wsign-promo -Wstrict-null-sentinel -Wswitch-default -Wundef\
-                                        -Wzero-as-null-pointer-constant -Wuseless-cast -Wnon-virtual-dtor\
-                                        -lSDL2_image -lSDL2_ttf -lSDL2_mixer -ldl")
+    set(COMPILE_FLAGS "${COMPILE_FLAGS} -std=c++11 -W -Wall -pedantic -std=c++11 -Wshadow -O2 -g")
 elseif (${CMAKE_CXX_COMPILER_ID} STREQUAL MSVC)
     set(COMPILE_FLAGS "${COMPILE_FLAGS} /Wall")
 endif()
@@ -40,63 +48,19 @@ endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${COMPILE_FLAGS}")
 
 
+# Include headers
+include_directories("${INCL_DIR}")
+include_directories("${GAME_INCL_DIR}")
 
-#### Dependencies ####
+# libmidifile 
+LINK_DIRECTORIES(${PROJECT_SOURCE_DIR}/lib)
 
-# Add engine
-set (PROJECT_ENGINE_DIR "${PROJECT_SOURCE_DIR}/engine")
-add_subdirectory(${PROJECT_ENGINE_DIR})
-include_directories(${ENGINE_INCLUDE_DIR})
+# Create engine executable
+add_executable(game ${SRC})
 
+target_link_libraries(game midifile
+                            ${SDL2_LIBRARY}
+                            ${SDL2_IMAGE_LIBRARIES}
+                            ${SDL2_MIXER_LIBRARIES}
+                            ${SDL2_TTF_LIBRARIES})
 
-#### Executable ####
-
-# Include Headers
-include_directories("${PROJECT_INCLUDE_DIR}")
-add_executable(game ${SOURCES})
-
-target_link_libraries(game
-                      engine
-                      SDL2 SDL2_image SDL2_ttf SDL2_mixer)
-
-
-#### Custom Commands ####
-
-# Copy assets folder to build
-add_custom_command(TARGET game POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy_directory
-                   ${PROJECT_ASSETS_DIR} ${CMAKE_BINARY_DIR}/assets)
-
-#### Instalation ####
-install(TARGETS game DESTINATION /usr/games)
-install(DIRECTORY ${PROJECT_ASSETS_DIR} DESTINATION /usr/games)
-
-#### Packs ####
-
-# build a CPack driven installer package
-include (InstallRequiredSystemLibraries)
-
-set(CPACK_PACKAGE_NAME                "Game")
-set(CPACK_PACKAGE_VENDOR              "UnB - FGA")
-set(CPACK_RESOURCE_FILE_LICENSE       "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
-set(CPACK_PACKAGE_VERSION_MAJOR       "1")
-set(CPACK_PACKAGE_VERSION_MINOR       "0")
-set(CPACK_PACKAGE_CONTACT             "Matheus Faria <matheusfaria@unb.br>")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Base game project of IJE")
-set(CPACK_PACKAGE_DESCRIPTION         "Base game project of IJE with all the contents that a game needs to be developed on the course")
-
-# Custom
-set(CPACK_PACKAGE_URL                 "http://unbgames.lappis.rocks")
-
-# .deb related info
-# set(CPACK_DEBIAN_PACKAGE_DEPENDS    "")
-set(CPACK_DEBIAN_FILE_NAME            "DEB-DEFAULT")
-set(CPACK_DEBIAN_PACKAGE_SECTION      "Games")
-set(CPACK_DEBIAN_PACKAGE_HOMEPAGE     ${CPACK_PACKAGE_URL})
-
-# .rpm related info
-# set(CPACK_RPM_PACKAGE_REQUIRES    "")
-set(CPACK_RPM_FILE_NAME       "RPM-DEFAULT")
-set(CPACK_RPM_PACKAGE_LICENSE "MIT")
-set(CPACK_RPM_PACKAGE_URL     ${CPACK_PACKAGE_URL})
-include (CPack)
