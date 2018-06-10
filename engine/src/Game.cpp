@@ -2,6 +2,7 @@
 #include "Resources.hpp"
 #include "InputManager.hpp"
 #include "GameData.hpp"
+#include "BeatManager.hpp"
 
 Game* Game::instance = nullptr;
 bool GameData::playerVictory = false;
@@ -148,6 +149,7 @@ void Game::Run()
         
         CalculateDeltaTime();
         sceneStack.top()->Render();
+        BeatManager::GetInstance().Update(dt);
         InputManager::GetInstance().Update();
         sceneStack.top()->Update(dt);
         

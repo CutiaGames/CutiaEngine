@@ -23,7 +23,7 @@ TitleScene::TitleScene()
     Camera::pos = Vec2(0, 0);
 
     GameObject* titleMessage = new GameObject();
-    titleMessage->AddComponent(new Text(*titleMessage, "sample_assets/font/Call me maybe.ttf", 80, Text::TextStyle::BLENDED, "Press Space to begin", {0, 0, 0, 255}, 3.0));
+    titleMessage->AddComponent(new Text(*titleMessage, "sample_assets/font/Call me maybe.ttf", 80, Text::TextStyle::BLENDED, "Press Space to begin", {255, 255, 255, 255}, 3.0));
     titleMessage->box.y = Game::GetInstance().GetHeight()/1.3;
     titleMessage->box.x = Game::GetInstance().GetWidth()/6;
     objectArray.emplace_back(titleMessage);

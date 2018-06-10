@@ -4,6 +4,7 @@
 #include "Sprite.hpp"
 #include "Collider.hpp"
 #include "Game.hpp"
+#include "BeatManager.hpp"
 
 Player* Player::player;
 
@@ -11,15 +12,15 @@ Player::Player(GameObject& associated) : Component(associated)
 {
     associated.AddComponent(new Collider(associated));
     
-    Sprite* sprite = new Sprite(associated, "assets/img/player_iddle.png", 4, 0.25);
+    Sprite* sprite = new Sprite(associated, "assets/img/player_iddle.png", 4, 1);
     associated.AddComponent(sprite);
-
-    associated.box.h = sprite->GetHeight();
+    
     associated.box.w = sprite->GetWidth();
+    associated.box.h = sprite->GetHeight();
 
     state = MOVING;
     punchTimer = Timer();
-    punchOffset = 2.5;
+    punchOffset = 3;
 }
 
 Player::~Player()
@@ -36,38 +37,55 @@ void Player::Update(float dt)
 {
     if(state == MOVING)
     {
-        if(InputManager::GetInstance().IsKeyDown(SDLK_UP))
+        // printf("x %lf\n", associated.box.x);
+        // printf("y %lf\n", associated.box.y);
+        if(BeatManager::GetInstance().IsBeat())
         {
-            if(Game::GetInstance().GetHeight()/4 < associated.box.y)
+            printf("isBeat: %d\n", BeatManager::GetInstance().IsBeat());
+        }
+
+        if(InputManager::GetInstance().KeyPress(SDLK_UP))
+        {
+            if(Game::GetInstance().GetHeight()/3 < associated.box.y)
             {
-                associated.box.y -= 10;
+                associated.box.y -= 45;
+                associated.box.x += 60;
             }
         }
-        if(InputManager::GetInstance().IsKeyDown(SDLK_DOWN))
+        if(InputManager::GetInstance().KeyPress(SDLK_DOWN))
         {
-            if(Game::GetInstance().GetHeight() - 200 > associated.box.y)
+            if(Game::GetInstance().GetHeight() - 220 > associated.box.y)
             {
-                associated.box.y += 10;
+                associated.box.y += 45;
+                associated.box.x -= 60;
             }
         }
-        if(InputManager::GetInstance().IsKeyDown(SDLK_LEFT))
+        if(InputManager::GetInstance().KeyPress(SDLK_LEFT))
         {
-            associated.box.x -= 10;
+            associated.box.x -= 90;
         }
-        if(InputManager::GetInstance().IsKeyDown(SDLK_RIGHT))
+        if(InputManager::GetInstance().KeyPress(SDLK_RIGHT))
         {
-            associated.box.x += 10;
+            if(BeatManager::GetInstance().IsBeat())
+            {
+                printf("BEATOU!");
+            }
+            associated.box.x += 90;
         }
-        if(InputManager::GetInstance().IsKeyDown(SDLK_SPACE))
+        if(InputManager::GetInstance().KeyPress(SDLK_SPACE))
         {
             state = PUNCH;
             punchTimer.Restart();
 
-            GameObject* playerPunch = new GameObject();
-		    playerPunch->box.x = associated.box.x;
-		    playerPunch->box.y = associated.box.y;
-            playerPunch->AddComponent(new Sprite(*playerPunch, "assets/img/player_punch_left.png", 5, 0.5, 2.5));
-		    //Sound* sound = new Sound(*playerPunch, "assets/audio/boom.wav");
+            associated.RemoveComponent((Sprite *)associated.GetComponent("Sprite"));
+            if(InputManager::GetInstance().IsKeyDown(SDLK_RIGHT))
+            {      
+                associated.AddComponent(new Sprite(associated, "assets/img/player_punch_up.png", 3, 1));
+            }
+            else
+            {
+                associated.AddComponent(new Sprite(associated, (rand()%2 == 1 ? "assets/img/player_punch_left.png" : "assets/img/player_punch_right.png"), 5, 0.6));
+            }
         }
     }
     else if(state == PUNCH)
@@ -77,6 +95,8 @@ void Player::Update(float dt)
         if (punchTimer.Get() > punchOffset)
         {
             state = MOVING;
+            associated.RemoveComponent((Sprite *)associated.GetComponent("Sprite"));
+            associated.AddComponent(new Sprite(associated, "assets/img/player_iddle.png", 4, 1));
         }
     }
 }

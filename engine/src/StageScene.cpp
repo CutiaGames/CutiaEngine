@@ -37,8 +37,8 @@ StageScene::StageScene()
 
 	GameObject* playerGO = new GameObject();
 	Player* player = new Player(*playerGO);
-	playerGO->box.x = 512;
-	playerGO->box.y = 300;
+	playerGO->box.x = 515;
+	playerGO->box.y = 305;
 	playerGO->AddComponent(player);
 	objectArray.emplace_back(playerGO);
 
@@ -65,7 +65,7 @@ void StageScene::Start()
 
 void StageScene::Update(float dt)
 {
-	Camera::Update(dt);
+	//Camera::Update(dt);
 
 	if(InputManager::GetInstance().KeyPress(SDLK_ESCAPE) || InputManager::GetInstance().QuitRequested())
 	{

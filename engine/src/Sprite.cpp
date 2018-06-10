@@ -11,14 +11,13 @@ Sprite::Sprite(GameObject& associated) : Component(associated)
 
 Sprite::Sprite(GameObject& associated, std::string file, int frameCount, float frameTime, float secondsToSelfDestruct) : Sprite(associated)
 {
-    Open(file);
-
     SetFrameCount(frameCount);
     SetFrameTime(frameTime);
     
-    timeElapsed = 0.f;
-    currentFrame = 0;
+    this->currentFrame = 0;
     this->secondsToSelfDestruct = secondsToSelfDestruct;
+
+    Open(file);
 }
 
 Sprite::~Sprite()
@@ -36,7 +35,7 @@ void Sprite::Open(string file)
 
     SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
 
-    SetClip(0, 0, width, height);
+    SetClip(0, 0, width / frameCount, height);
 }
 
 void Sprite::SetClip(int x, int y, int w, int h)
@@ -74,9 +73,9 @@ void Sprite::Update(float dt)
 		}
 	}
 
-    timeElapsed += dt;
+    this->timeElapsed += dt;
 
-    if(timeElapsed > frameTime)
+    if(this->timeElapsed > frameTime)
     {
         SetFrame(currentFrame + 1);
     }
@@ -125,8 +124,11 @@ void Sprite::SetScaleX(float scaleX, float scaleY)
 
 void Sprite::SetFrame(int frame)
 {
-    SetClip(frame * GetWidth(), 0, GetWidth(), GetHeight());
     currentFrame = frame;
+
+    SetClip(frame * GetWidth(), clipRect.y, GetWidth(), GetHeight());
+
+    this->timeElapsed = 0.f;
 }
 
 void Sprite::SetFrameCount(int frameCount)
