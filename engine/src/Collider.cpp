@@ -5,7 +5,7 @@
 #include "Camera.hpp"
 #include "Game.hpp"
 
-#include <SDL2/SDL.h>
+#include "EngineSDL.hpp"
 #endif // DEBUG
 
 Collider::Collider(GameObject& associated, Vec2 scale, Vec2 offset) : Component(associated), scale(scale), offset(offset)

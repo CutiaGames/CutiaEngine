@@ -25,47 +25,46 @@ void Game::Init(string title, int width, int height)
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0)
     {
         printf("[ERROR] SDL_Init: %s\n", SDL_GetError());
-        return;
+        std::exit(EXIT_FAILURE);
     }
 
     int imageFlags = IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF;
     if(IMG_Init(imageFlags) != imageFlags)
     {
         printf("[ERROR] IMG_Init: %s\n", IMG_GetError());
-        return;
+        std::exit(EXIT_FAILURE);
     }
 
-    int mixFlags = MIX_INIT_OGG | MIX_INIT_MP3;
+    int mixFlags = MIX_INIT_MP3;
     if(Mix_Init(mixFlags) != mixFlags)
     {
-      printf("[ERROR] Mix_Init: %s\n", Mix_GetError());
-      return;
+      printf("[Warning] Mix_Init: %s\n", Mix_GetError());
     }
 
     if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) < 0)
     {
         printf("[ERROR] Mix_OpenAudio: %s\n", Mix_GetError());
-        return;
+        std::exit(EXIT_FAILURE);
     }
 
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
     if(window == nullptr)
     {
         printf("[ERROR] SDL_CreateWindow: %s\n", Mix_GetError());
-        return;
+        std::exit(EXIT_FAILURE);
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(renderer == nullptr)
     {
         printf("[ERROR] SDL_CreateRenderer: %s\n", SDL_GetError());
-        return;
+        std::exit(EXIT_FAILURE);
     }
 
     if(TTF_Init() != 0)
     {
         printf("[ERROR] TTF_Init: %s\n", SDL_GetError());
-        return;   
+        std::exit(EXIT_FAILURE);
     }
 
     storedScene = nullptr;

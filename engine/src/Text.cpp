@@ -44,7 +44,12 @@ void Text::Render()
         return;
     }
 
-    SDL_Rect destRect = SDL_Rect {associated.box.x - Camera::pos.x, associated.box.y - Camera::pos.y, associated.box.w, associated.box.h};
+    int x = associated.box.x - Camera::pos.x;
+    int y = associated.box.y - Camera::pos.y;
+    int w = associated.box.w;
+    int h = associated.box.h;
+
+    SDL_Rect destRect = SDL_Rect {x, y, w, h};
     SDL_Rect clipRect = destRect;
     clipRect.x = clipRect.y = 0; 
     

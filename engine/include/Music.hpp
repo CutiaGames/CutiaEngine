@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 
-#include "SDL2/SDL_mixer.h"
+#include "EngineSDL.hpp"
 
 using std::string;
 

@@ -4,7 +4,7 @@
 #include <iostream>
 #include <memory>
 
-#include "SDL2/SDL.h"
+#include "EngineSDL.hpp"
 
 #include "Component.hpp"
 #include "GameObject.hpp"

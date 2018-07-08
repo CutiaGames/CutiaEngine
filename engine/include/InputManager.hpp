@@ -1,7 +1,7 @@
 #ifndef INPUTMANAGER_HPP
 #define INPUTMANAGER_HPP
 
-#include "SDL2/SDL.h"
+#include "EngineSDL.hpp"
 
 #include <unordered_map>
 #include <iostream>

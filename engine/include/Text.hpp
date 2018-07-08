@@ -1,7 +1,7 @@
 #ifndef TEXT_HPP
 #define TEXT_HPP
 
-#include "SDL2/SDL_ttf.h"
+#include "EngineSDL.hpp"
 
 #include "Component.hpp"
 #include "Timer.hpp"
