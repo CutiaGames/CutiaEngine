@@ -1,5 +1,7 @@
 #include "InputManager.hpp"
 
+#include "BeatManager.hpp"
+
 InputManager& InputManager::GetInstance() 
 {
 	static InputManager instance;
@@ -62,6 +64,10 @@ void InputManager::Update()
 
 bool InputManager::KeyPress(int key) 
 {
+	if(keyUpdate[key] == updateCounter && keyState[key] && BeatManager::GetInstance().IsBeat())
+	{
+		printf("BEATOU!\n");
+	}
 	return keyUpdate[key] == updateCounter && keyState[key];
 }
 

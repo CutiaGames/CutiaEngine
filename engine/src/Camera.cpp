@@ -22,7 +22,7 @@ void Camera::Update(float dt)
     if(focus != nullptr)
     {
         Camera::pos.x = focus->box.x - (Game::GetInstance().GetWidth()/2);
-        Camera::pos.y = focus->box.y - (Game::GetInstance().GetHeight()/2);
+        // Camera::pos.y = focus->box.y - (Game::GetInstance().GetHeight()/2);
     }
     else
     {
