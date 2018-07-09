@@ -5,6 +5,7 @@
 
 #include <unordered_map>
 #include <iostream>
+#include "GameObject.hpp"
 
 #define LEFT_ARROW_KEY SDLK_LEFT
 #define RIGHT_ARROW_KEY SDLK_RIGHT
@@ -32,6 +33,8 @@ class InputManager
 
         InputManager();
         ~InputManager();
+
+        GameObject* beatSoundHandler;
 
     public:
         static InputManager& GetInstance();

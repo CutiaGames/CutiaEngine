@@ -1,6 +1,9 @@
 #include "InputManager.hpp"
 
+#include "BeatSoundPlayer.hpp"
 #include "BeatManager.hpp"
+#include "Resources.hpp"
+
 
 InputManager& InputManager::GetInstance() 
 {
@@ -14,6 +17,9 @@ InputManager::InputManager() : mouseState {false}, mouseUpdate {0}
 	quitRequested = false;
 	mouseX = 0;
 	mouseY = 0;
+
+	beatSoundHandler = new GameObject();
+	beatSoundHandler->AddComponent( new BeatSoundPlayer( *beatSoundHandler ) );
 }
 
 InputManager::~InputManager() 
@@ -66,6 +72,8 @@ bool InputManager::KeyPress(int key)
 {
 	if(keyUpdate[key] == updateCounter && keyState[key] && BeatManager::GetInstance().IsBeat())
 	{
+		BeatSoundPlayer* sound = (BeatSoundPlayer*) beatSoundHandler->GetComponent("BeatSoundPlayer");
+		sound->PlayPalm();
 		printf("BEATOU!\n");
 	}
 	return keyUpdate[key] == updateCounter && keyState[key];

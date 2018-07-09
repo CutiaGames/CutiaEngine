@@ -21,6 +21,8 @@ class Resources
         static std::shared_ptr<TTF_Font> GetFont(std::string file, int ptsize);
         static void ClearFonts();
 
+        static void ClearAll();
+
     private:
         static std::unordered_map<std::string, std::shared_ptr<SDL_Texture> > imageTable;
         static std::unordered_map<std::string, std::shared_ptr<Mix_Music> > musicTable;

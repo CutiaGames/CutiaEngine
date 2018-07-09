@@ -6,6 +6,15 @@ std::unordered_map<std::string, std::shared_ptr<Mix_Music> > Resources::musicTab
 std::unordered_map<std::string, std::shared_ptr<Mix_Chunk> > Resources::soundTable;
 std::unordered_map<std::string, std::shared_ptr<TTF_Font> > Resources::fontTable;
 
+
+void Resources::ClearAll()
+{
+    ClearMusics();
+	ClearSounds();
+    ClearImages();
+    ClearFonts();
+}
+
 std::shared_ptr<SDL_Texture> Resources::GetImage(std::string file)
 {
     auto search = imageTable.find(file);
