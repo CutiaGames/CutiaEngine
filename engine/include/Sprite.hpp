@@ -32,6 +32,8 @@ class Sprite : public Component
         Sprite(GameObject& associated, std::string file, int frameCount = 1, float frameTime = 1.f, float secondsToSelfDestruct = 0);
         ~Sprite();
 
+        bool denyCamera = false;
+
         void Open(string file);
         void SetClip(int x, int y, int w, int h);
         int GetWidth();
