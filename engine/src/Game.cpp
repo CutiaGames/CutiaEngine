@@ -17,6 +17,16 @@ Game& Game::GetInstance()
     return *instance;
 }
 
+Uint32 Game::CalculateFrameTimeLeft()
+{
+    Uint32 now = SDL_GetTicks();
+
+    if(nextTime > now)
+        return nextTime - now;
+
+    return 0;
+}
+
 void Game::Init(string title, int width, int height)
 {
     this->height = height;
@@ -155,7 +165,12 @@ void Game::Run()
         SDL_RenderPresent(renderer);
         SDL_RenderClear(renderer);
 
-        SDL_Delay(33);
+        //Update next time
+        nextTime = SDL_GetTicks() + tickRate;
+        Uint32 timeLeft = CalculateFrameTimeLeft();
+        SDL_Delay( timeLeft );
+        
+        nextTime += tickRate;
     }
 
     Resources::ClearImages();

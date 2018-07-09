@@ -22,6 +22,9 @@ class Game
         int frameStart;
         float dt;
         void CalculateDeltaTime();
+        Uint32 CalculateFrameTimeLeft();
+        const Uint32 tickRate = 30;
+        Uint32 nextTime;
 
         int width;
         int height;
