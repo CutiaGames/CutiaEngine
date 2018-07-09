@@ -34,7 +34,7 @@ class InputManager
         InputManager();
         ~InputManager();
 
-        GameObject* beatSoundHandler;
+        GameObject* observer = nullptr;
 
     public:
         static InputManager& GetInstance();

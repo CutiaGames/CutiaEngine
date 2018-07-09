@@ -47,7 +47,7 @@ void Sprite::Render()
 {
     //SDL_Rect destRect = SDL_Rect {(int)associated.box.x, (int)associated.box.y, clipRect.w, clipRect.h};
     //SDL_RenderCopy(Game::GetInstance().GetRenderer(), texture, &clipRect, &destRect);
-    Render(associated.box.x - Camera::pos.x, associated.box.y - Camera::pos.y);
+    Render(associated.box.x, associated.box.y);
 }
 
 void Sprite::Render(float x, float y)

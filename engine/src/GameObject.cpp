@@ -7,6 +7,7 @@ GameObject::GameObject()
     isDead = false;
     started = false;
     angleDeg = 0.0;
+    name = "";
 }
 
 GameObject::~GameObject()
@@ -70,7 +71,7 @@ Component* GameObject::GetComponent(std::string type)
     if (it == components.end())
         return nullptr;
 
-    return *it;    
+    return *it;
 }
 
 void GameObject::NotifyCollision(GameObject& other)
