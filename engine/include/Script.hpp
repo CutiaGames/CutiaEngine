@@ -1,5 +1,5 @@
-#ifndef SCRIPT_HPP
-#define SCRIPT_HPP
+#ifndef SCRIPT_HPPPP
+#define SCRIPT_HPPPP
 
 #include "Component.hpp"
 

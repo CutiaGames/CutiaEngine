@@ -1,5 +1,5 @@
-#ifndef CUTIA_SDL_HPP
-#define CUTIA_SDL_HPP
+#ifndef ENGINE_SDL
+#define ENGINE_SDL
 
 #include <SDL.h>
 #include <SDL_image.h>
