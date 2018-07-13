@@ -1,5 +1,8 @@
-run:
+default:
 	cd build && cmake .. && make
+	./build/game
+
+run:
 	./build/game
 
 clean:
